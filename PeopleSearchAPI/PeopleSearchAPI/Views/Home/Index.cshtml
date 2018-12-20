@@ -28,15 +28,43 @@
 	<p>Enter the search terms:</p>
 	<p>
 		<div>
-			<input id="textBoxText" type="text" width="200px" />
+			<input id="textBoxText" type="search" width="200" />
 			<button id="submitBtn" type="button" onclick="searchSubmit()">Search</button>
+			<br />
+			<h2>Search Results</h2>
+			<div class="row clearfix">
+				<div class="col-md-12 column">
+					<table class="table table-bordered table-hover" id="tab_logic">
+						<thead>
+							<tr>
+								<th class="text-center">
+									Id
+								</th>
+								<th class="text-center">
+									Full Name
+								</th>
+								<th class="text-center">
+									Street Address
+								</th>
+								<th class="text-center">
+									City, State Zipcode
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr id='addr0'></tr>
+							<tr id='addr1'></tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
 		</div>
 	</p>
 </div>
 <script>
 	function searchSubmit() {
 		var str = document.getElementById("textBoxText").value;
-
+		str = str.replace(/[^a-zA-Z0-9 ,]/g, "")
 		var request = new XMLHttpRequest();
 		var domName = window.location.origin;
 		var fullApiPath = domName + '/api/people/GetMatches/' + str;
@@ -45,10 +73,27 @@
 
 			// Begin accessing JSON data here
 			var data = JSON.parse(this.response);
+			var er = document.getElementById('wrapper');
+			var i = 0;
 
 			if (request.status >= 200 && request.status < 400) {
+				if (data === null) {
+
+				}
 				data.forEach(people => {
 					console.log(people.FirstName + ' ' + people.LastName + ' ' + people.Id + '\n');
+					
+					$('#addr' + i).html(
+						"<td><input name='id" + i + "' type='text' value='" + people.Id +
+						"' class='form-control input-md' disabled='true' /> </td><td><input name='fullName' type='text' value='"
+						+ people.FirstName + " " + people.LastName + "' class='form-control input-md' disabled='true'></td>" +
+						"<td> <input name='streetAddress' type='text' value='"
+						+ people.StreetAddressLine01 + "\n " + people.StreetAddressLine02 + "' class='form-control input-md' disabled='true'></td>" +
+						"<td> <input name='cityStateZip' type='text' value='"
+						+ people.City + ", " + people.State + " " + people.ZipCode + "' class='form-control input-md'disabled='true' ></td>");
+
+					$('#tab_logic').append('<tr id="addr' + (i + 1) + '"></tr>');
+					i++;
 				});
 			} else {
 				console.log('error');
