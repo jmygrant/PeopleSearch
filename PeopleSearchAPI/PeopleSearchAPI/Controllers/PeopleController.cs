@@ -81,18 +81,18 @@ namespace PeopleSearchAPI.Controllers
 		/// Gets a list of the first names of all users.
 		/// </summary>
 		/// <returns>A List of first names</returns>
-		[Route("api/people/GetFirstNames")]
-		[HttpGet]
-		public List<string> GetFirstNames()
-		{
-			List<string> output = new List<string>();
+		//[Route("api/people/GetFirstNames")]
+		//[HttpGet]
+		//public List<string> GetFirstNames()
+		//{
+		//	List<string> output = new List<string>();
 
-			foreach (var p in people)
-			{
-				output.Add(p.FirstName);
-			}
-			return output;
-		}
+		//	foreach (var p in people)
+		//	{
+		//		output.Add(p.FirstName);
+		//	}
+		//	return output;
+		//}
 
 		/// <summary>
 		/// Gets a list of person info who match the input search string.
@@ -129,28 +129,28 @@ namespace PeopleSearchAPI.Controllers
 			return true;
 		}
 
-		// GET: api/People
-		public List<PersonInfo> Get()
-		{
-			return people;
-		}
+		//// GET: api/People
+		//public List<PersonInfo> Get()
+		//{
+		//	return people;
+		//}
 
-		// GET: api/People/5
-		public PersonInfo Get(int id)
-		{
-			return people.Where(x => x.Id == id).FirstOrDefault();
-		}
+		//// GET: api/People/5
+		//public PersonInfo Get(int id)
+		//{
+		//	return people.Where(x => x.Id == id).FirstOrDefault();
+		//}
 
-		// POST: api/People
-		public void Post(PersonInfo val)
-		{
-			people.Add(val);
-		}
+		//// POST: api/People
+		//public void Post(PersonInfo val)
+		//{
+		//	people.Add(val);
+		//}
 
-		// DELETE: api/People/5
-		public void Delete(int id)
-		{
-			people.Remove(people.Where(x => x.Id == id).FirstOrDefault());
-		}
+		//// DELETE: api/People/5
+		//public void Delete(int id)
+		//{
+		//	people.Remove(people.Where(x => x.Id == id).FirstOrDefault());
+		//}
 	}
 }
